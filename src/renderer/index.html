@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Caffeine Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>Caffeine Tracker</h1>
+      <p id="today-date" class="muted"></p>
+    </header>
+
+    <main>
+      <section class="card status-card" aria-labelledby="status-heading">
+        <h2 id="status-heading" class="sr-only">Today's status</h2>
+        <div class="stat-row">
+          <div>
+            <p class="stat-label">Today</p>
+            <p class="stat-value" id="today-total">0 mg</p>
+          </div>
+          <div class="stat-right">
+            <p class="stat-label">Still active now</p>
+            <p class="stat-value" id="active-mg">0 mg</p>
+          </div>
+        </div>
+        <div class="progress" role="progressbar" aria-label="Share of daily limit used" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <p class="muted" id="limit-text"></p>
+        <p class="status-message" id="status-message"></p>
+      </section>
+
+      <section class="card" aria-labelledby="quick-heading">
+        <h2 id="quick-heading">Quick add</h2>
+        <div class="chips" id="presets"></div>
+      </section>
+
+      <section class="card" aria-labelledby="custom-heading">
+        <h2 id="custom-heading">Custom entry</h2>
+        <form id="custom-form" class="custom-form">
+          <label>
+            Name
+            <input id="custom-name" type="text" maxlength="60" placeholder="e.g. Pre-workout" required />
+          </label>
+          <div class="form-row">
+            <label>
+              Caffeine (mg)
+              <input id="custom-mg" type="number" min="1" max="1000" step="1" required />
+            </label>
+            <label>
+              Time
+              <input id="custom-time" type="datetime-local" />
+            </label>
+          </div>
+          <button type="submit" class="primary">Add entry</button>
+        </form>
+      </section>
+
+      <section class="card" aria-labelledby="log-heading">
+        <h2 id="log-heading">Today's log</h2>
+        <ul class="log" id="log"></ul>
+        <p class="muted empty" id="log-empty" hidden>Nothing logged yet today.</p>
+      </section>
+
+      <section class="card" aria-labelledby="week-heading">
+        <h2 id="week-heading">Last 7 days</h2>
+        <div class="week" id="week"></div>
+      </section>
+
+      <section class="card" aria-labelledby="settings-heading">
+        <h2 id="settings-heading">Settings</h2>
+        <form id="limit-form" class="limit-form">
+          <label>
+            Daily limit (mg)
+            <input id="limit-input" type="number" min="50" max="2000" step="1" required />
+          </label>
+          <button type="submit">Save limit</button>
+        </form>
+        <p class="muted small">Caffeine values are approximate. Active caffeine assumes a 5-hour half-life. This app is for tracking only and is not medical advice.</p>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>
